@@ -47,6 +47,10 @@ import { OilSystemInterfaces } from "./oil-system"
 import { FuelSystemComponents } from "./fuel-system"
 import { IgnitionStarter } from "./ignition-starter"
 import { AccessoryAssembly } from "./accessory-assembly"
+import { CoreNozzle } from "./core-nozzle"
+import { Mixer } from "./mixer"
+import { ThrustReverserCascades } from "./thrust-reverser-cascades"
+import { ExhaustAssembly } from "./exhaust-assembly"
 
 // Define module types and their components
 const modules = {
@@ -128,6 +132,15 @@ const modules = {
       "oil-system-interfaces": { label: "Oil System Interfaces", component: OilSystemInterfaces },
       "fuel-system-components": { label: "Fuel System Components", component: FuelSystemComponents },
       "ignition-starter": { label: "Ignition & Starter", component: IgnitionStarter },
+    },
+  },
+  "exhaust-module": {
+    label: "Exhaust & Mixer",
+    components: {
+      "exhaust-assembly": { label: "Full Assembly", component: ExhaustAssembly },
+      "core-nozzle": { label: "Core Nozzle", component: CoreNozzle },
+      "mixer": { label: "Mixer", component: Mixer },
+      "thrust-reverser-cascades": { label: "Thrust Reverser Cascades", component: ThrustReverserCascades },
     },
   },
 }
