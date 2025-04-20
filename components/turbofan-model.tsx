@@ -37,6 +37,11 @@ import { LptStage3Blades } from "./lpt-stage3-blades"
 import { LptStage4Blades } from "./lpt-stage4-blades"
 import { TurbineCasing } from "./turbine-casing"
 import { TurbineAssembly } from "./turbine-assembly"
+import { LpShaft } from "./lp-shaft"
+import { HpShaft } from "./hp-shaft"
+import { Bearings } from "./bearings"
+import { BearingHousing } from "./bearing-housing"
+import { ShaftsAssembly } from "./shafts-assembly"
 
 // Define module types and their components
 const modules = {
@@ -98,6 +103,16 @@ const modules = {
       "lpt-stage3-blades": { label: "LPT Stage 3 Blades", component: LptStage3Blades },
       "lpt-stage4-blades": { label: "LPT Stage 4 Blades", component: LptStage4Blades },
       "turbine-casing": { label: "Turbine Casing", component: TurbineCasing },
+    },
+  },
+  "shafts-module": {
+    label: "Shafts & Bearings",
+    components: {
+      "shafts-assembly": { label: "Full Assembly", component: ShaftsAssembly },
+      "lp-shaft": { label: "LP Shaft", component: LpShaft },
+      "hp-shaft": { label: "HP Shaft", component: HpShaft },
+      "bearings": { label: "Bearings", component: Bearings },
+      "bearing-housing": { label: "Bearing Housing", component: BearingHousing },
     },
   },
 }
