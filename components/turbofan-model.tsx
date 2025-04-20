@@ -30,6 +30,13 @@ import { CombustorLiners } from "./combustor-liners"
 import { FuelInjectorNozzles } from "./fuel-injector-nozzles"
 import { TransitionDuct } from "./transition-duct"
 import { CombustorAssembly } from "./combustor-assembly"
+import { HptNozzleGuideVanes } from "./hpt-nozzle-guide-vanes"
+import { HptRotorBlades } from "./hpt-rotor-blades"
+import { LptStage2Blades } from "./lpt-stage2-blades"
+import { LptStage3Blades } from "./lpt-stage3-blades"
+import { LptStage4Blades } from "./lpt-stage4-blades"
+import { TurbineCasing } from "./turbine-casing"
+import { TurbineAssembly } from "./turbine-assembly"
 
 // Define module types and their components
 const modules = {
@@ -79,6 +86,18 @@ const modules = {
       "combustor-liners": { label: "Liners", component: CombustorLiners },
       "fuel-injector-nozzles": { label: "Nozzles", component: FuelInjectorNozzles },
       "transition-duct": { label: "Transition Duct", component: TransitionDuct },
+    },
+  },
+  "turbine-module": {
+    label: "Turbine Section",
+    components: {
+      "turbine-assembly": { label: "Full Assembly", component: TurbineAssembly },
+      "hpt-nozzle-guide-vanes": { label: "HPT Nozzle Guide Vanes", component: HptNozzleGuideVanes },
+      "hpt-rotor-blades": { label: "HPT Rotor Blades", component: HptRotorBlades },
+      "lpt-stage2-blades": { label: "LPT Stage 2 Blades", component: LptStage2Blades },
+      "lpt-stage3-blades": { label: "LPT Stage 3 Blades", component: LptStage3Blades },
+      "lpt-stage4-blades": { label: "LPT Stage 4 Blades", component: LptStage4Blades },
+      "turbine-casing": { label: "Turbine Casing", component: TurbineCasing },
     },
   },
 }
