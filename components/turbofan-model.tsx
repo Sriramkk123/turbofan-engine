@@ -51,6 +51,11 @@ import { CoreNozzle } from "./core-nozzle"
 import { Mixer } from "./mixer"
 import { ThrustReverserCascades } from "./thrust-reverser-cascades"
 import { ExhaustAssembly } from "./exhaust-assembly"
+import { InnerBarrel } from "./inner-barrel"
+import { OuterBarrel } from "./outer-barrel"
+import { StrutsYPipes } from "./struts-y-pipes"
+import { PylonMountLugs } from "./pylon-mount-lugs"
+import { MountingAssembly } from "./mounting-assembly"
 
 // Define module types and their components
 const modules = {
@@ -141,6 +146,16 @@ const modules = {
       "core-nozzle": { label: "Core Nozzle", component: CoreNozzle },
       "mixer": { label: "Mixer", component: Mixer },
       "thrust-reverser-cascades": { label: "Thrust Reverser Cascades", component: ThrustReverserCascades },
+    },
+  },
+  "mounting-module": {
+    label: "Mounting & Fairings",
+    components: {
+      "mounting-assembly": { label: "Full Assembly", component: MountingAssembly },
+      "inner-barrel": { label: "Inner Barrel / Core Case", component: InnerBarrel },
+      "outer-barrel": { label: "Outer Barrel / Fan Case", component: OuterBarrel },
+      "struts-y-pipes": { label: "Struts & Y‑Pipes", component: StrutsYPipes },
+      "pylon-mount-lugs": { label: "Pylon Mount Lugs", component: PylonMountLugs },
     },
   },
 }
