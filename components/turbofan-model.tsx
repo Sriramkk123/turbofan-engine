@@ -42,6 +42,11 @@ import { HpShaft } from "./hp-shaft"
 import { Bearings } from "./bearings"
 import { BearingHousing } from "./bearing-housing"
 import { ShaftsAssembly } from "./shafts-assembly"
+import { AccessoryGearbox } from "./accessory-gearbox"
+import { OilSystemInterfaces } from "./oil-system"
+import { FuelSystemComponents } from "./fuel-system"
+import { IgnitionStarter } from "./ignition-starter"
+import { AccessoryAssembly } from "./accessory-assembly"
 
 // Define module types and their components
 const modules = {
@@ -113,6 +118,16 @@ const modules = {
       "hp-shaft": { label: "HP Shaft", component: HpShaft },
       "bearings": { label: "Bearings", component: Bearings },
       "bearing-housing": { label: "Bearing Housing", component: BearingHousing },
+    },
+  },
+  "accessory-module": {
+    label: "Accessory Systems",
+    components: {
+      "accessory-assembly": { label: "Full Assembly", component: AccessoryAssembly },
+      "accessory-gearbox": { label: "Accessory Gearbox", component: AccessoryGearbox },
+      "oil-system-interfaces": { label: "Oil System Interfaces", component: OilSystemInterfaces },
+      "fuel-system-components": { label: "Fuel System Components", component: FuelSystemComponents },
+      "ignition-starter": { label: "Ignition & Starter", component: IgnitionStarter },
     },
   },
 }
