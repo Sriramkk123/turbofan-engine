@@ -56,6 +56,7 @@ import { OuterBarrel } from "./outer-barrel"
 import { StrutsYPipes } from "./struts-y-pipes"
 import { PylonMountLugs } from "./pylon-mount-lugs"
 import { MountingAssembly } from "./mounting-assembly"
+import { TurbofanAssembly } from "./turbofan-assembly"
 
 // Define module types and their components
 const modules = {
@@ -163,6 +164,8 @@ const modules = {
 export default function TurbofanModel() {
   const [activeModule, setActiveModule] = useState("fan-module")
   const [activeComponent, setActiveComponent] = useState("full-assembly")
+  const [assemblyView, setAssemblyView] = useState(true)
+  const toggleView = () => setAssemblyView(v => !v)
 
   // When changing modules, reset to the full assembly of that module
   const handleModuleChange = (value: string) => {
@@ -180,7 +183,7 @@ export default function TurbofanModel() {
     <div className="w-full h-screen flex flex-col">
       <div className="flex-1 relative">
         <Canvas shadows>
-          <PerspectiveCamera makeDefault position={[0, 0, 5]} />
+          <PerspectiveCamera makeDefault position={assemblyView ? [12, 0, 0] : [0, 0, 5]} />
           <ambientLight intensity={0.5} />
           <directionalLight
             position={[10, 10, 5]}
@@ -190,7 +193,7 @@ export default function TurbofanModel() {
             shadow-mapSize-height={2048}
           />
           <Suspense fallback={null}>
-            {renderActiveComponent()}
+            {assemblyView ? <TurbofanAssembly /> : renderActiveComponent()}
             <Environment preset="studio" />
           </Suspense>
           <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} minDistance={2} maxDistance={10} />
@@ -200,35 +203,42 @@ export default function TurbofanModel() {
       <Card className="w-full rounded-none border-t">
         <CardContent className="p-4 space-y-4">
           <div className="flex items-center gap-4">
-            <Label htmlFor="module-select" className="w-32">
-              Select Module:
-            </Label>
-            <Select value={activeModule} onValueChange={handleModuleChange}>
-              <SelectTrigger id="module-select" className="w-[240px]">
-                <SelectValue placeholder="Select module" />
-              </SelectTrigger>
-              <SelectContent>
-                {Object.entries(modules).map(([key, { label }]) => (
-                  <SelectItem key={key} value={key}>
-                    {label}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
+            <button className="px-2 py-1 bg-gray-200 rounded" onClick={toggleView}>
+              {assemblyView ? "View Modules" : "View Full Engine"}
+            </button>
+            {!assemblyView && (
+              <>
+                <Label htmlFor="module-select" className="w-32">Select Module:</Label>
+                <Select value={activeModule} onValueChange={handleModuleChange}>
+                  <SelectTrigger id="module-select" className="w-[240px]">
+                    <SelectValue placeholder="Select module" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {Object.entries(modules).map(([key, { label }]) => (
+                      <SelectItem key={key} value={key}>
+                        {label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </>
+            )}
           </div>
 
-          <Tabs value={activeComponent} onValueChange={setActiveComponent} className="w-full">
-            <TabsList
-              className="grid w-full"
-              style={{ gridTemplateColumns: `repeat(${Object.keys(modules[activeModule].components).length}, 1fr)` }}
-            >
-              {Object.entries(modules[activeModule].components).map(([key, { label }]) => (
-                <TabsTrigger key={key} value={key}>
-                  {label}
-                </TabsTrigger>
-              ))}
-            </TabsList>
-          </Tabs>
+          {!assemblyView && (
+            <Tabs value={activeComponent} onValueChange={setActiveComponent} className="w-full">
+              <TabsList
+                className="grid w-full"
+                style={{ gridTemplateColumns: `repeat(${Object.keys(modules[activeModule].components).length}, 1fr)` }}
+              >
+                {Object.entries(modules[activeModule].components).map(([key, { label }]) => (
+                  <TabsTrigger key={key} value={key}>
+                    {label}
+                  </TabsTrigger>
+                ))}
+              </TabsList>
+            </Tabs>
+          )}
         </CardContent>
       </Card>
     </div>
