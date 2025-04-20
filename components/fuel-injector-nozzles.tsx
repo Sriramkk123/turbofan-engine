@@ -1,7 +1,6 @@
 "use client";
 
 import { Sphere } from "@react-three/drei";
-import * as THREE from "three";
 
 export function FuelInjectorNozzles() {
   const nozzles = Array.from({ length: 20 });
