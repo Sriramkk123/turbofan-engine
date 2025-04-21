@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, Suspense } from "react"
+import type { ComponentType } from "react"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Environment, PerspectiveCamera } from "@react-three/drei"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -59,7 +60,7 @@ import { MountingAssembly } from "./mounting-assembly"
 import { TurbofanAssembly } from "./turbofan-assembly"
 
 // Define module types and their components
-const modules = {
+const modules: Record<string, { label: string; components: Record<string, { label: string; component: ComponentType<any> }>; }> = {
   "fan-module": {
     label: "Fan Module",
     components: {
@@ -198,49 +199,37 @@ export default function TurbofanModel() {
           </Suspense>
           <OrbitControls enablePan={true} enableZoom={true} enableRotate={true} minDistance={2} maxDistance={10} />
         </Canvas>
-      </div>
-
-      <Card className="w-full rounded-none border-t">
-        <CardContent className="p-4 space-y-4">
-          <div className="flex items-center gap-4">
-            <button className="px-2 py-1 bg-gray-200 rounded" onClick={toggleView}>
-              {assemblyView ? "View Modules" : "View Full Engine"}
-            </button>
-            {!assemblyView && (
-              <>
-                <Label htmlFor="module-select" className="w-32">Select Module:</Label>
-                <Select value={activeModule} onValueChange={handleModuleChange}>
-                  <SelectTrigger id="module-select" className="w-[240px]">
-                    <SelectValue placeholder="Select module" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {Object.entries(modules).map(([key, { label }]) => (
-                      <SelectItem key={key} value={key}>
-                        {label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </>
-            )}
-          </div>
-
+        {/* Floating control panel */}
+        <div className="absolute top-4 left-4 z-20 flex flex-col space-y-2 bg-white bg-opacity-75 p-2 rounded shadow">
+          <button className="px-2 py-1 bg-gray-200 rounded w-full" onClick={toggleView}>
+            {assemblyView ? "View Modules" : "View Full Engine"}
+          </button>
+          {!assemblyView && (
+            <div className="flex items-center gap-2">
+              <Label htmlFor="module-select">Select Module:</Label>
+              <Select value={activeModule} onValueChange={handleModuleChange}>
+                <SelectTrigger id="module-select">
+                  <SelectValue placeholder="Select module" />
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(modules).map(([key, mod]) => (
+                    <SelectItem key={key} value={key}>{mod.label}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
           {!assemblyView && (
             <Tabs value={activeComponent} onValueChange={setActiveComponent} className="w-full">
-              <TabsList
-                className="grid w-full"
-                style={{ gridTemplateColumns: `repeat(${Object.keys(modules[activeModule].components).length}, 1fr)` }}
-              >
-                {Object.entries(modules[activeModule].components).map(([key, { label }]) => (
-                  <TabsTrigger key={key} value={key}>
-                    {label}
-                  </TabsTrigger>
+              <TabsList className="grid w-full" style={{ gridTemplateColumns: `repeat(${Object.keys(modules[activeModule].components).length}, 1fr)` }}>
+                {Object.entries(modules[activeModule].components).map(([key, comp]) => (
+                  <TabsTrigger key={key} value={key}>{comp.label}</TabsTrigger>
                 ))}
               </TabsList>
             </Tabs>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     </div>
   )
 }
